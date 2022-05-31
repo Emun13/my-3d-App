@@ -732,7 +732,7 @@ export class PhysicsTest extends Scene3D {
       }
       try {
         // move object far down the camera
-        allObjs[key].position.set(0,-100,0);
+        allObjs[key].position.set(0,-5000,0);
         allObjs[key].geometry.dispose();
         allObjs[key].material.dispose();
         // hide object from user 
@@ -771,7 +771,7 @@ export class PhysicsTest extends Scene3D {
         }
         try {
           // move object far below camera
-          allObjs[key].position.set(0,-100,0);
+          allObjs[key].position.set(0,-5000,0);
           allObjs[key].geometry.dispose();
           allObjs[key].material.dispose();
           // hide object from user
