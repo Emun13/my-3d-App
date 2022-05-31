@@ -1,6 +1,9 @@
 {
   "name": "vite-project",
   "private": true,
+  "scripts": {
+    "start": "npm run dev"
+  },
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -13,6 +16,7 @@
   "dependencies": {
     "@enable3d/ammo-physics": "^0.25.1",
     "enable3d": "^0.25.1",
+    "serve": "^13.0.2",
     "three": "^0.141.0"
   }
 }
