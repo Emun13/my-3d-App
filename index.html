@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <style type="text/css">
+   
+    body {
+      margin: 0;
+      font-family: monospace;
+    }
+
+    .section {
+      font-family: monospace;
+      background-color: rgba(59, 195, 248, .8);
+      color: #ffffff;
+      cursor: pointer;
+      margin-top: .5%;
+      margin-left: .5%;
+      padding: 20px;
+      width: 99%;
+      transition: .2s;
+      outline: none;
+      border: 2px solid #ffffff;
+      position: absolute;
+      z-index: 5;
+      font-size: 18px;
+      border-radius: 30px 30px 0px 0px;
+    }
+    .active, .section:hover {
+      background-color: rgba(59, 195, 248, .8);
+    }
+
+    .sectionPannel {
+      width: 96%;
+      margin-top: .5%;
+      margin-left: .5%;
+      padding-left: 1%;
+      padding-top: 34%;
+      display: hide; 
+      background-color: rgba(59, 195, 248, .8);
+      position: absolute;
+      border-radius: 30px 30px 20px 20px;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+      overflow-y: scroll;
+    }
+
+    .container {
+      position: absolute;
+      width: 15%;
+      height: 100%;
+      margin-top: 0px;
+      margin-left: 2px;
+      overflow-y: scroll;
+    }
+
+    .innerPanelBox {
+      width: 86%;
+    }
+
+    .cateogry1 {
+      padding-bottom: 50px;
+    }
+
+    .categoryTitle {
+      font-size: 16px;
+    }
+
+    .selectBox {
+      font-size: 14px;
+      position: relative;
+      top: -5px;
+      cursor: pointer;
+    }
+
+    #gifLoader {
+      width: 100%;
+      height: 100%;
+      padding-top: 20px;
+      position: relative;
+      display: none;
+    }
+
+    details {
+      /*padding-top: 25px;*/
+      position: relative;
+      width: 100%;
+      top: 20px;
+      /*border: 1px solid #858585;*/
+    }
+
+    details > summary {
+      background-color: rgba(255, 255, 255, 1);
+      color: #000000;
+      cursor: pointer;
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #858585;
+    }
+
+    details > form {
+      padding-top: 10px;
+      font-size: 12px;
+      /*background-color: red;*/
+      /*height: 300px;*/
+      overflow-y: auto;
+      width: 100%;
+      padding-right: 12px;
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    input {
+      width: 50px;
+    }
+
+    input[type=submit] {
+      width: 100%;
+    }
+
+    .valuesSection {
+      margin-bottom: 40px;
+    }
+
+    .actionsSection {
+      margin-bottom: 40px;
+    }
+
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0,0,0,.5);
+        -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+    }
+  </style>
+
+  <body>
+    <!-- <div id="app"></div> -->
+    
+    <div class="container">
+      <button class="section">Tools</button>
+  
+      <div class="sectionPannel">
+        <div class="innerPanelBox">
+          <div class="cateogry1">
+            <p class="categoryTitle">Create Shape:</p>
+            <select class="selectBox" id="selectShape" onchange="onSelectShape()">
+              <option> Select... </option>
+              <option> Capsule </option>
+              <option> Cone </option>
+              <option> Cube </option>
+              <option> Cylinder </option>
+              <option> Plane </option>
+              <option> Ring </option>
+              <option> Sphere </option>
+              <option> Torus </option>
+              <option> Torus Knot </option>
+              <option> Tube </option>
+            </select>
+            <img src="" id="gifLoader">
+
+            <details class="valuesSection"><summary>Values</summary>
+              
+              <form name="CapsuleForm" id="CapsuleForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"> <br><br>
+                <label>Radius:</label>
+                <input name="radius" step="0.01" type="number" min="0.05" max="10" value=""> (min: .05, max: 10)<br><br>
+                <label>Length:</label>
+                <input name="objLength" step="0.01" type="number" min="0.05"><br><br>
+                <label>Cap Segments:</label>
+                <input name="capSegments" type="number" min="1" max="30"> (min: 1, max: 30)<br><br>
+                <label>Side Faces:</label>
+                <input name="sideFaces" type="number" min="1" max="30"> (min: 1, max: 30)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="ConeForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Radius:</label>
+                <input name="radius" type="number" min="1"><br><br>
+                <label>Height:</label>
+                <input name="height" type="number" min="1"><br><br>
+                <label>Circumference Faces:</label>
+                <input name="circumferenceFaces" type="number" min="1" max="30"> (min: 1, max: 30)<br><br>
+                <label>Hollow:</label>
+                <input id="coneHollow" name="hollow" type="checkbox"><br><br>
+                <label>Fill:</label>
+                <input name="fill" type="number" min="1" max="6"> (min: 1, max: 6)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="CubeForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Width:</label>
+                <input name="width" step="0.1" type="number" min=".5"><br><br>
+                <label>Height:</label>
+                <input name="height" step="0.1" type="number" min=".5"><br><br>
+                <label>Depth:</label>
+                <input name="depth" step="0.1" type="number" min=".5"><br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="CylinderForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Radius Top:</label>
+                <input name="radiusTop" step="0.1" type="number" min=".5"><br><br>
+                <label>Radius Bottom:</label>
+                <input name="radiusBottom" step="0.1" type="number" min=".5"><br><br>
+                <label>Height:</label>
+                <input name="height" step="0.1" type="number" min=".5"><br><br>
+                <label>Circumference Faces:</label>
+                <input name="circumferenceFaces" type="number" min="1" max="30"> (min: 1, max: 30)<br><br>
+                <label>Hollow:</label>
+                <input name="hollow" type="checkbox"><br><br>
+                <label>Fill:</label>
+                <input name="fill" type="number" min="1" max="6"> (min: 1, max: 6)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="PlaneForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Width:</label>
+                <input name="width" type="number" step="0.1" min=".5"><br><br>
+                <label>Height:</label>
+                <input name="height" type="number" step="0.1"  min=".5"><br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="RingForm" style="display: none;"> 
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Inner Radius:</label>
+                <input name="innerRadius" type="number" step="0.1" min=".5"><br><br>
+                <label>Outer Radius:</label>
+                <input name="outerRadius" type="number" step="0.1" min=".5"><br><br>
+                <label>Circumference Faces:</label>
+                <input name="circumferenceFaces" type="number" min="3" max="30"> (min: 3, max: 30)<br><br>
+                <label>Fill:</label>
+                <input name="fill" type="number" min="1" max="6"> (min: 1, max: 6)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="SphereForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Radius:</label>
+                <input name="radius" type="number" step=".1" min=".5"><br><br>
+                <label>Horizontal Faces:</label>
+                <input name="horizontalFaces" type="number" min="1" max="30"> (min: 1, max: 30)<br><br>
+                <label>Vertical Faces:</label>
+                <input name="verticalFaces" type="number" min="1" max="30"> (min: 1, max: 30)<br><br>
+                <label>Fill:</label>
+                <input name="fill" type="number" step="0.1" min="0.1" max="6"> (min: 1, max: 6)<br><br>
+                <label>Vertical Starting Angle:</label>
+                <input name="verticalStartingAngle" type="number" step=".1" min=".5" max="6"> (min: .5, max: 6)<br><br>
+                <label>Vertical Sweep Angle:</label>
+                <input name="verticalSweepAngle" type="number" step=".1" min=".5" max="6"> (min: .5, max: 6)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="TorusForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br> 
+                <label>Radius:</label>
+                <input name="radius" type="number" step=".1" min=".5"><br><br>
+                <label>Thickness:</label>
+                <input name="thickness" type="number" step=".01" min=".1" max="1"> (min: .1, max: 1)<br><br>
+                <label>Vertical Faces:</label>
+                <input name="verticalFaces" type="number" min="2" max="30"> (min: 2, max: 30)<br><br>
+                <label>Circumference Faces:</label>
+                <input name="circumferenceFaces" type="number" min="3" max="30"> (min: 3, max: 30)<br><br>
+                <label>Fill:</label>
+                <input name="fill" type="number" step="0.1" min="0.1" max="6"> (min: 1, max: 6)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="TorusKnotForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Size:</label>
+                <input name="size" type="number" step=".1" min=".5"><br><br>
+                <label>Thickness:</label>
+                <input name="thickness" type="number" step=".01" min=".1" max="1"> (min: .1, max: 1)<br><br>
+                <label>Tube Faces:</label>
+                <input name="tubeFaces" type="number" min="3" max="100"> (min: 3, max: 100)<br><br>
+                <label>Circumference Faces:</label>
+                <input name="circumferenceFaces" type="number" min="3" max="30"> (min: 3, max: 30)<br><br>
+                <p>If <b>P</b> & <b>Q</b> are not coprime, this will result in a Trous Link</p>
+                <label>P:</label>
+                <input name="p" type="number" min="1" max="20"> (min: 1, max: 20)<br><br>
+                <label>Q:</label>
+                <input name="q" type="number" min="1" max="20"> (min: 1, max: 20)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+
+              <form id="TubeForm" style="display: none;">
+                <label>Name:</label>
+                <input name="name" type="text"><br><br>
+                <label>Size:</label>
+                <input name="size" type="number" step=".1" min=".5" max="10"> (min: .5, max: 10)<br><br>
+                <label>Tube Segments:</label>
+                <input name="tubeSegments" type="number" min="1" max="64"> (min: 1, max: 64)<br><br>
+                <label>Thickness:</label>
+                <input name="thickness" type="number" step=".01" min=".1" max="1"> (min: .1, max: 1)<br><br>
+                <label>Radius Segments:</label>
+                <input name="radiusSegments" type="number" min="2" max="20"> (min: 2, max: 20)<br><br>
+                <label>Color:</label>
+                <input name="color" type="text"> (hex value, Ex. FFFFFF)<br><br>
+              </form>
+              <input id="submit" style="position: relative;" onclick="" type="submit" value="Submit"><br>
+            </details>
+
+            <details class="actionsSection"><summary>Actions</summary>
+              <form>
+                <label>Choose Object:</label><br><br>
+                <select id="objsList"></select><br><br>
+              </form>
+              <form id="gravityDetails">
+                <label>Change Gravity:</label>
+                <p>(Default: -1.62, moon's gravity...Everything will always default back to -1.62)</p>
+                x:<input name="x" value="0" type="number" step=".01">
+                y:<input name="y" value="-1.62" type="number" step=".01">
+                z:<input name="z" value="0" type="number" step=".01">
+              </form><br>
+              <button id="applyGravity">Apply Gravity</button><br><br>
+              <button id="applyPhysicsSpecific">Apply Physics</button><br><br>
+              <button id="moveObjSpecific">Stop Physics & Move</button><br><br>
+              <button id="deleteObj">Delete Object</button><br><br>
+            </details>
+
+            <details><summary>Apply to World</summary>
+              <br>
+              <button id="physicsOnAll">Physics On</button><br><br>
+              <button id="physicsOffAll">Physics Off</button>
+
+              <form id="gravityAllDetails">
+                <label>Change Gravity:</label>
+                <p>(Default: -1.62, moon's gravity...Everything will always default back to -1.62)</p>
+                x:<input name="x" value="0" type="number" step=".01">
+                y:<input name="y" value="-1.62" type="number" step=".01">
+                z:<input name="z" value="0" type="number" step=".01">
+              </form><br>
+              <button id="applyAllGravity">Apply Gravity</button><br><br>
+              <button id="deleteObjAll">Clear World</button><br><br>
+            </details>
+          </div>
+          <!-- <button id="submit2">SUBMIT</button> -->
+        </div>
+      </div>
+    </div>
+
+  <script>
+    function handleForm(event) { event.preventDefault(); }; 
+
+    var sections = document.getElementsByClassName("section");
+    for (let i = 0; i < sections.length; i++) {
+      sections[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      })
+    }
+  
+    function onSelectShape() {
+      var selectShape = document.getElementById("selectShape");
+      var selectedShape = selectShape.options[selectShape.selectedIndex].text;
+      var gif = document.getElementById("gifLoader");
+      gif.style.display = "block";
+      gif.src = `/gifs/${selectedShape}.gif`;
+      if (selectedShape === "Select...") {
+        gif.style.display = "none";
+      }
+
+      var forms = ["Capsule", "Cone", "Cube", "Cylinder", "Plane", "Ring", "Sphere", "Torus", "Tube"];
+
+      for (let i = 0; i < forms.length; i++) {
+        // prevent form default
+        // form default reloads page on submit
+        document.getElementById(`${forms[i]}Form`).addEventListener('submit', handleForm);
+
+        // hide or show respective form
+        // TorusKnot is exception, uses space
+        if (selectedShape == forms[i]) {
+          document.getElementById(`${forms[i]}Form`).style.display = "block";
+        } else if (selectedShape == "Torus Knot") {
+          document.getElementById("TorusKnotForm").style.display = "block";
+          document.getElementById(`${forms[i]}Form`).style.display = "none";
+        } else {
+          document.getElementById(`${forms[i]}Form`).style.display = "none";
+          document.getElementById("TorusKnotForm").style.display = "none";
+        }
+      }
+    }
+
+
+  </script>
+
+  <script type="module" src="/main.js"></script>
+  
+  </body>
+</html>
